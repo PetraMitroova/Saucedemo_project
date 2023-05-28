@@ -36,6 +36,7 @@ class WhenSearchingForTerms {
      */
     DisplayedArticle displayedArticle;
 
+    //todo pisem komentar
     @Test
     void searchBySingleKeyword() {
         navigate.toTheHomePage();
