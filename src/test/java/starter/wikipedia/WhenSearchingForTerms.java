@@ -42,11 +42,29 @@ class WhenSearchingForTerms {
     @Test
     void loginPageValid() {
         navigate.toTheHomePage();
-//        actions.sendKeysUsername("standard_user");
-        actions.sendKeysUsername("locked_out_user");
+        actions.sendKeysUsername("standard_user");
+
         actions.sendKeysPassword("secret_sauce");
         actions.clickLoginButton();
 
         Assertions.assertEquals(expectedUrlAfterLogin,driver.getCurrentUrl());
+    }
+    @Test
+    void loginPageTitle() {
+        navigate.toTheHomePage();
+        Assertions.assertEquals("Swag Labs",driver.getTitle());
+
+    }
+    @Test
+    void loginPageProblemUser() {
+
+        navigate.toTheHomePage();
+        actions.sendKeysUsername("problem_user");
+
+        actions.sendKeysPassword("secret_sauce");
+        actions.clickLoginButton();
+
+        Assertions.assertEquals(expectedUrlAfterLogin, driver.getCurrentUrl());
+
     }
 }
