@@ -129,5 +129,52 @@ class WhenSearchingForTerms {
         Assertions.assertEquals(expectedURLCheckout, driver.getCurrentUrl());
 
     }
+    @Test
+    void shoppingCartExistOfStepTwo() {
+
+        navigate.toTheHomePage();
+        actions.sendKeysUsername("standard_user");
+
+        actions.sendKeysPassword("secret_sauce");
+        actions.clickLoginButton();
+        actions.clickCartButton();
+        actions.clickCheckout();
+        actions.putfirstName("Petra");
+        actions.putLastName("Mitroova");
+        actions.putPostalCode("040 11");
+        actions.clickContinue();
+
+
+        Assertions.assertEquals("https://www.saucedemo.com/checkout-step-two.html", driver.getCurrentUrl());
+
+    }
+    @Test
+    void shoppingCartUncompleetedForm() {
+
+        navigate.toTheHomePage();
+        actions.sendKeysUsername("standard_user");
+
+        actions.sendKeysPassword("secret_sauce");
+        actions.clickLoginButton();
+        actions.clickCartButton();
+        actions.clickCheckout();
+        actions.putfirstName("");
+        actions.clickContinue();
+        Assertions.assertEquals(expectedURLCheckout, driver.getCurrentUrl());
+        actions.putfirstName("Petra");
+        actions.putLastName("");
+        actions.clickContinue();
+        Assertions.assertEquals(expectedURLCheckout, driver.getCurrentUrl());
+        actions.putLastName("Mitroova");
+        actions.putPostalCode("");
+        actions.clickContinue();
+        Assertions.assertEquals(expectedURLCheckout, driver.getCurrentUrl());
+        actions.putPostalCode("040 11");
+        actions.clickContinue();
+
+
+        Assertions.assertEquals("https://www.saucedemo.com/checkout-step-two.html", driver.getCurrentUrl());
+
+    }
 
 }

@@ -50,4 +50,22 @@ public class SearchActions extends UIInteractions {
         getDriver().findElement(By.id("checkout")).click();
 
     }
+    @Step
+    public void putfirstName(String name){
+        getDriver().findElement(By.id("first-name")).sendKeys(name);
+
+    }@Step
+    public void putLastName(String lastName){
+        getDriver().findElement(By.id("last-name")).sendKeys(lastName);
+
+    }@Step
+    public void putPostalCode(String postalCode){
+        getDriver().findElement(By.id("postal-code")).sendKeys(postalCode);
+
+    }
+    @Step
+    public void clickContinue (){
+        getDriver().findElement(By.id("continue")).click();
+
+    }
 }
