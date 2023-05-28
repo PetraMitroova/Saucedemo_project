@@ -8,6 +8,6 @@ public class SearchActions extends UIInteractions {
 
     @Step("Search by keyword '{0}'")
     public void searchBy(String keyword) {
-        $("#searchInput").sendKeys(keyword, Keys.ENTER);
+        $("#searchInput").sendKeys(keyword,Keys.ENTER);
     }
 }
