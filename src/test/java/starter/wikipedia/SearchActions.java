@@ -26,4 +26,28 @@ public class SearchActions extends UIInteractions {
     public void clickLoginButton(){
         getDriver().findElement(By.id("login-button")).click();
     }
+    @Step
+    public void clickMenuButton(){
+        getDriver().findElement(By.id("react-burger-menu-btn")).click();
+
+    }
+    @Step
+    public void clickLogoutButton(){
+        getDriver().findElement(By.id("logout_sidebar_link")).click();
+    }
+    @Step
+    public void clickCartButton(){
+        getDriver().findElement(By.id("shopping_cart_container")).click();
+
+    }
+    @Step
+    public void clickContinueShopping(){
+        getDriver().findElement(By.id("continue-shopping")).click();
+
+    }
+    @Step
+    public void clickCheckout(){
+        getDriver().findElement(By.id("checkout")).click();
+
+    }
 }

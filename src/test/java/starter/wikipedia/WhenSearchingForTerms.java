@@ -38,7 +38,9 @@ class WhenSearchingForTerms {
     DisplayedArticle displayedArticle;
 
     private final String expectedUrlAfterLogin = "https://www.saucedemo.com/inventory.html";
-
+    private final String homeURL = "https://www.saucedemo.com/";
+    private final String expectedURLCart = "https://www.saucedemo.com/cart.html";
+    private final String expectedURLCheckout = "https://www.saucedemo.com/checkout-step-one.html";
     @Test
     void loginPageValid() {
         navigate.toTheHomePage();
@@ -67,4 +69,65 @@ class WhenSearchingForTerms {
         Assertions.assertEquals(expectedUrlAfterLogin, driver.getCurrentUrl());
 
     }
+    @Test
+    void logoutPage() {
+
+        navigate.toTheHomePage();
+        actions.sendKeysUsername("problem_user");
+
+        actions.sendKeysPassword("secret_sauce");
+        actions.clickLoginButton();
+        actions.clickMenuButton();
+        actions.clickLogoutButton();
+
+        Assertions.assertEquals(homeURL, driver.getCurrentUrl());
+
+    }
+    @Test
+    void existOfCartItem() {
+
+        navigate.toTheHomePage();
+        actions.sendKeysUsername("problem_user");
+
+        actions.sendKeysPassword("secret_sauce");
+        actions.clickLoginButton();
+        actions.clickCartButton();
+
+
+        Assertions.assertEquals(expectedURLCart, driver.getCurrentUrl());
+
+    }
+    @Test
+
+    void existOfContinueShopping() {
+
+        navigate.toTheHomePage();
+        actions.sendKeysUsername("problem_user");
+
+        actions.sendKeysPassword("secret_sauce");
+        actions.clickLoginButton();
+        actions.clickCartButton();
+        actions.clickContinueShopping();
+
+
+        Assertions.assertEquals(expectedUrlAfterLogin, driver.getCurrentUrl());
+
+    }
+    @Test
+
+    void existOfCheckOutButton() {
+
+        navigate.toTheHomePage();
+        actions.sendKeysUsername("problem_user");
+
+        actions.sendKeysPassword("secret_sauce");
+        actions.clickLoginButton();
+        actions.clickCartButton();
+        actions.clickCheckout();
+
+
+        Assertions.assertEquals(expectedURLCheckout, driver.getCurrentUrl());
+
+    }
+
 }
