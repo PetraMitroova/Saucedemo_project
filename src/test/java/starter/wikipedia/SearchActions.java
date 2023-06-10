@@ -101,6 +101,13 @@ public class SearchActions extends UIInteractions {
                 .replace("$","");
 
     }
+    @Step
+    public String checkATotalPrice(){
+        return  getDriver().findElement(By.className("summary_subtotal_label")).getText()
+                .replace("Item total: $","");
+
+    }
+
 
 
 

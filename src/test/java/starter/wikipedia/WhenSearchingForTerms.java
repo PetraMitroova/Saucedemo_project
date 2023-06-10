@@ -183,32 +183,35 @@ class WhenSearchingForTerms {
 
 
 
-        Assertions.assertEquals("$29.99",actions.checkAPriceInCartBackpackbyXpath());
-        Assertions.assertEquals("$9.99",actions.checkAPriceInCartLightbyXpath());
+        Assertions.assertEquals("29.99",actions.checkAPriceInCartBackpackbyXpath());
+        Assertions.assertEquals("9.99",actions.checkAPriceInCartLightbyXpath());
 
 
     }
     @Test
-    void shoppingCartCompleetedForm() {
+    void checkASumInCart() {
 
         navigate.toTheHomePage();
         actions.sendKeysUsername("standard_user");
 
         actions.sendKeysPassword("secret_sauce");
         actions.clickLoginButton();
+        actions.clickToAddToCartSauceLabsBikeLight();
+        actions.clickToAddToCartSauceLabsBackpack();
+
         actions.clickCartButton();
+        double priceBackpack = Double.parseDouble(actions.checkAPriceInCartBackpackbyXpath());
+        double priceBikeLight = Double.parseDouble(actions.checkAPriceInCartLightbyXpath());
         actions.clickCheckout();
         actions.clickContinue();
-        Assertions.assertEquals("Error: First Name is required",actions.errorMessage());
         actions.putfirstName("Petra");
         actions.clickContinue();
-        Assertions.assertEquals("Error: Last Name is required",actions.errorMessage());
         actions.putLastName("Mitroova");
         actions.clickContinue();
-        Assertions.assertEquals("Error: Postal Code is required",actions.errorMessage());
         actions.putPostalCode("040 11");
         actions.clickContinue();
-        Assertions.assertEquals("https://www.saucedemo.com/checkout-step-two.html", driver.getCurrentUrl());
+
+        Assertions.assertEquals(priceBackpack+priceBikeLight, Double.parseDouble(actions.checkATotalPrice()));
 
 }
     @Test
@@ -234,32 +237,5 @@ class WhenSearchingForTerms {
         Assertions.assertEquals("https://www.saucedemo.com/checkout-step-two.html", driver.getCurrentUrl());
 
     }
-    @Test
-    void check2PricesInCartAndSumTotal() {
-        double sumTotal = 0;
 
-
-
-        navigate.toTheHomePage();
-        actions.sendKeysUsername("standard_user");
-        actions.sendKeysPassword("secret_sauce");
-        actions.clickLoginButton();
-        actions.clickToAddToCartSauceLabsBikeLight();
-        actions.clickToAddToCartSauceLabsBackpack();
-        actions.clickCartButton();
-
-        double priceOfLight = Double.parseDouble(actions.checkAPriceInCartLightbyXpath());
-        double priceOfBackpack = Double.parseDouble(actions.checkAPriceInCartBackpackbyXpath());
-
-
-
-        Assertions.assertEquals("29.99",actions.checkAPriceInCartBackpackbyXpath());
-        Assertions.assertEquals("9.99",actions.checkAPriceInCartLightbyXpath());
-
-        Assertions.assertEquals(39.98, priceOfLight+priceOfBackpack);
-
-
-
-
-    }
 }
