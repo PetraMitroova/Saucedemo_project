@@ -68,4 +68,41 @@ public class SearchActions extends UIInteractions {
         getDriver().findElement(By.id("continue")).click();
 
     }
+    @Step
+    public String errorMessage(){
+        return getDriver().findElement(By.xpath("/html/body/div/div/div/div[2]/div/form/div[1]/div[4]/h3")).getText();
+
+    }
+    @Step
+    public void clickToAddToCartSauceLabsBikeLight(){
+        getDriver().findElement(By.id("add-to-cart-sauce-labs-bike-light")).click();
+
+    }
+    @Step
+    public String checkAPriceInCart(){
+       return  getDriver().findElement(By.xpath("//div[@class=\"inventory_item_price\"]")).getText();
+
+    }
+    @Step
+    public void clickToAddToCartSauceLabsBackpack(){
+        getDriver().findElement(By.id("add-to-cart-sauce-labs-backpack")).click();
+
+    }
+
+    @Step
+    public String checkAPriceInCartBackpackbyXpath(){
+        return  getDriver().findElement(By.xpath("/html/body/div/div/div/div[2]/div/div[1]/div[4]/div[2]/div[2]/div")).getText()
+                .replace("$","");
+
+    }
+    @Step
+    public String checkAPriceInCartLightbyXpath(){
+        return  getDriver().findElement(By.xpath("/html/body/div/div/div/div[2]/div/div[1]/div[3]/div[2]/div[2]/div")).getText()
+                .replace("$","");
+
+    }
+
+
+
+
 }

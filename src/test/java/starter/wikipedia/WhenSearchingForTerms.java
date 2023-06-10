@@ -129,25 +129,7 @@ class WhenSearchingForTerms {
         Assertions.assertEquals(expectedURLCheckout, driver.getCurrentUrl());
 
     }
-    @Test
-    void shoppingCartExistOfStepTwo() {
 
-        navigate.toTheHomePage();
-        actions.sendKeysUsername("standard_user");
-
-        actions.sendKeysPassword("secret_sauce");
-        actions.clickLoginButton();
-        actions.clickCartButton();
-        actions.clickCheckout();
-        actions.putfirstName("Petra");
-        actions.putLastName("Mitroova");
-        actions.putPostalCode("040 11");
-        actions.clickContinue();
-
-
-        Assertions.assertEquals("https://www.saucedemo.com/checkout-step-two.html", driver.getCurrentUrl());
-
-    }
     @Test
     void shoppingCartUncompleetedForm() {
 
@@ -176,5 +158,108 @@ class WhenSearchingForTerms {
         Assertions.assertEquals("https://www.saucedemo.com/checkout-step-two.html", driver.getCurrentUrl());
 
     }
+    @Test
+    void checkPriceInCart() {
 
+        navigate.toTheHomePage();
+        actions.sendKeysUsername("problem_user");
+        actions.sendKeysPassword("secret_sauce");
+        actions.clickLoginButton();
+        actions.clickToAddToCartSauceLabsBikeLight();
+        actions.clickCartButton();
+        Assertions.assertEquals("$9.99",actions.checkAPriceInCart());
+
+          }
+    @Test
+    void check2PricesInCart() {
+
+        navigate.toTheHomePage();
+        actions.sendKeysUsername("standard_user");
+        actions.sendKeysPassword("secret_sauce");
+        actions.clickLoginButton();
+        actions.clickToAddToCartSauceLabsBikeLight();
+        actions.clickToAddToCartSauceLabsBackpack();
+        actions.clickCartButton();
+
+
+
+        Assertions.assertEquals("$29.99",actions.checkAPriceInCartBackpackbyXpath());
+        Assertions.assertEquals("$9.99",actions.checkAPriceInCartLightbyXpath());
+
+
+    }
+    @Test
+    void shoppingCartCompleetedForm() {
+
+        navigate.toTheHomePage();
+        actions.sendKeysUsername("standard_user");
+
+        actions.sendKeysPassword("secret_sauce");
+        actions.clickLoginButton();
+        actions.clickCartButton();
+        actions.clickCheckout();
+        actions.clickContinue();
+        Assertions.assertEquals("Error: First Name is required",actions.errorMessage());
+        actions.putfirstName("Petra");
+        actions.clickContinue();
+        Assertions.assertEquals("Error: Last Name is required",actions.errorMessage());
+        actions.putLastName("Mitroova");
+        actions.clickContinue();
+        Assertions.assertEquals("Error: Postal Code is required",actions.errorMessage());
+        actions.putPostalCode("040 11");
+        actions.clickContinue();
+        Assertions.assertEquals("https://www.saucedemo.com/checkout-step-two.html", driver.getCurrentUrl());
+
+}
+    @Test
+    void shoppingCartCompleetedFormProblemUser() {
+
+        navigate.toTheHomePage();
+        actions.sendKeysUsername("problem_user");
+
+        actions.sendKeysPassword("secret_sauce");
+        actions.clickLoginButton();
+        actions.clickCartButton();
+        actions.clickCheckout();
+        actions.clickContinue();
+        Assertions.assertEquals("Error: First Name is required",actions.errorMessage());
+        actions.putfirstName("Petra");
+        actions.clickContinue();
+        Assertions.assertEquals("Error: Last Name is required",actions.errorMessage());
+        actions.putLastName("Mitroova");
+        actions.clickContinue();
+        Assertions.assertEquals("Error: Postal Code is required",actions.errorMessage());
+        actions.putPostalCode("040 11");
+        actions.clickContinue();
+        Assertions.assertEquals("https://www.saucedemo.com/checkout-step-two.html", driver.getCurrentUrl());
+
+    }
+    @Test
+    void check2PricesInCartAndSumTotal() {
+        double sumTotal = 0;
+
+
+
+        navigate.toTheHomePage();
+        actions.sendKeysUsername("standard_user");
+        actions.sendKeysPassword("secret_sauce");
+        actions.clickLoginButton();
+        actions.clickToAddToCartSauceLabsBikeLight();
+        actions.clickToAddToCartSauceLabsBackpack();
+        actions.clickCartButton();
+
+        double priceOfLight = Double.parseDouble(actions.checkAPriceInCartLightbyXpath());
+        double priceOfBackpack = Double.parseDouble(actions.checkAPriceInCartBackpackbyXpath());
+
+
+
+        Assertions.assertEquals("29.99",actions.checkAPriceInCartBackpackbyXpath());
+        Assertions.assertEquals("9.99",actions.checkAPriceInCartLightbyXpath());
+
+        Assertions.assertEquals(39.98, priceOfLight+priceOfBackpack);
+
+
+
+
+    }
 }
